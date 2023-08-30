@@ -4,16 +4,19 @@ from tkinter import ttk
 
 class App:
     def __init__(self) -> None:
+        self.returned: bool = False
+
         self.root: tk.Tk = tk.Tk()
         self.root.title('Calculator')
         self.root.grid_columnconfigure(0, weight=1)
         self.root.grid_rowconfigure(0, weight=1)
 
-        self.main_frame: ttk.Frame = ttk.Frame(self.root,
-                                               padding='3 3 3 3')
-        self.main_frame.grid(sticky="NWES")
-        self.main_frame.grid_columnconfigure(0, weight=1)
-        self.main_frame.grid_rowconfigure(0, weight=1)
+        self.main_frame: ttk.Frame = ttk.Frame(self.root)
+        self.main_frame.grid(sticky="NWES",
+                             padx=10,
+                             pady=10)
+        self.main_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
+        self.main_frame.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
 
         self.button_0: ttk.Button = ttk.Button(self.main_frame,
                                                text='0',
@@ -126,74 +129,136 @@ class App:
         self.button_dev.grid(column=3,
                              row=4,
                              )
-
+        self.data_to_count_temp: str = ''
         self.data_to_count: tk.StringVar = tk.StringVar()
+        self.data_to_count.set(self.data_to_count_temp)
         self.label: ttk.Label = ttk.Label(self.main_frame,
                                           textvariable=self.data_to_count)
         self.label.grid(column=0,
                         row=0,
                         columnspan=4,
-                        rowspan=1,
+                        sticky="NWES",
+                        padx=(0, 0),
+                        pady=(0, 3)
                         )
 
         for child in self.main_frame.winfo_children():
-            print(child)
-            child.grid_configure(padx=3,
-                                 pady=3)
-            if child.winfo_ismapped() and child.grid_info():
-                child.grid(sticky="NWES")
-                col = child.grid_info()['column']
-                row = child.grid_info()['row']
-
-                self.main_frame.columnconfigure(col, weight=1)
-                self.main_frame.rowconfigure(row, weight=1)
+            child.grid(sticky="NWES",
+                       padx=(0, 3),
+                       pady=(0, 3))
 
         self.root.mainloop()
 
     def zero(self) -> None:
-        print(0)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '0'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def one(self) -> None:
-        print(1)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '1'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def two(self) -> None:
-        print(2)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '2'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def three(self) -> None:
-        print(3)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '3'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def four(self) -> None:
-        print(4)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '4'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def five(self) -> None:
-        print(5)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '5'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def six(self) -> None:
-        print(6)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '6'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def seven(self) -> None:
-        print(7)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '7'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def eight(self) -> None:
-        print(8)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '8'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def nine(self) -> None:
-        print(9)
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '9'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def c(self) -> None:
-        print('c')
+        self.data_to_count_temp = ''
+        self.data_to_count.set('')
 
     def eq(self) -> None:
-        print('=')
+        self.calculate()
 
     def plus(self) -> None:
-        print('+')
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '+'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def minus(self) -> None:
-        print('-')
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '-'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def mult(self) -> None:
-        print('*')
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '*'
+        self.data_to_count.set(self.data_to_count_temp)
 
     def dev(self) -> None:
-        print('/')
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '/'
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def calculate(self) -> None:
+        self.data_to_count_temp = self.count()
+        self.data_to_count.set(self.data_to_count_temp)
+        self.returned = True
+
+    def count(self) -> float:
+        print(self.data_to_count_temp)
+        return 10
