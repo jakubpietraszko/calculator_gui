@@ -464,9 +464,9 @@ class App:
 
         temp: To_RPN = To_RPN(ret4)
         temp = temp.result()
-
+        print(temp)
         temp2: From_RPN_to_val = From_RPN_to_val(temp)
-
+        print(temp2.result())
         self.data_to_count_temp = temp2.result()
 
         self.data_to_count.set(self.data_to_count_temp)
