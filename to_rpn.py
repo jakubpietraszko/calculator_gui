@@ -6,19 +6,17 @@ class To_RPN():
     def __init__(self, data: list[str]) -> None:
         self.stack: list[str] = []
         self.queue: list[str] = []
-        print('data', data)
         for e in data:
             if is_float(e):
                 self.queue.append(e)
                 continue
 
             if e in ['^(', '√(', 'ln(', 'sin(', 'cos(', 'tan(', '-√(', '-ln(', '-sin(', '-cos(', '-tan(']:
-                print(e)
                 self.stack.append(e)
                 continue
 
             if e in ['+', '-']:
-                while len(self.stack) > 0 and (self.stack[-1] in ['+', '-']):
+                while len(self.stack) > 0 and (self.stack[-1] in ['+', '-', '*', '/']):
                     self.queue.append(self.stack.pop())
                 self.stack.append(e)
                 continue
@@ -51,7 +49,6 @@ class To_RPN():
             self.queue.append(self.stack.pop())
 
     def result(self) -> list[str]:
-        print(self.queue)
         return self.queue
 
 
@@ -124,8 +121,7 @@ class From_RPN_to_val():
 
 
 if __name__ == '__main__':
-    data: list[str] = ['3', '+', '4', '*', '2', '/',
-                       '(', '1', '-', '5', ')', '^', '2']
+    data: list[str] =  ['3', '+', '4','*', '2', '/', '(', '1', '-', '5', ')', '^', '2']
     print('before', data)
     temp: To_RPN = To_RPN(data)
     print('after', temp.result())
