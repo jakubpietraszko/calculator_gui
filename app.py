@@ -93,7 +93,7 @@ class App:
         self.button_c: ttk.Button = ttk.Button(self.main_frame,
                                                text='c',
                                                command=self.c)
-        self.button_c.grid(column=5,
+        self.button_c.grid(column=4,
                            row=0,
                            )
 
@@ -132,40 +132,40 @@ class App:
                              row=4,
                              )
 
-        self.button_sqrt: ttk.Button = ttk.Button(self.main_frame,
-                                                  text='√',
-                                                  command=self.sqrt)
-        self.button_sqrt.grid(column=4,
-                              row=1,
-                              )
+        #self.button_sqrt: ttk.Button = ttk.Button(self.main_frame,
+        #                                          text='√',
+        #                                          command=self.sqrt)
+        #self.button_sqrt.grid(column=4,
+        #                      row=1,
+        #                      )
 
-        self.button_ln: ttk.Button = ttk.Button(self.main_frame,
-                                                text='ln',
-                                                command=self.ln)
-        self.button_ln.grid(column=4,
-                            row=2,
-                            )
+        #self.button_ln: ttk.Button = ttk.Button(self.main_frame,
+        #                                        text='ln',
+        #                                        command=self.ln)
+        #self.button_ln.grid(column=4,
+        #                    row=2,
+        #                    )
 
-        self.button_sin: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='sin',
-                                                 command=self.sin)
-        self.button_sin.grid(column=5,
-                             row=2,
-                             )
+        #self.button_sin: ttk.Button = ttk.Button(self.main_frame,
+        #                                         text='sin',
+        #                                         command=self.sin)
+        #self.button_sin.grid(column=5,
+        #                     row=2,
+        #                     )
 
-        self.button_cos: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='cos',
-                                                 command=self.cos)
-        self.button_cos.grid(column=5,
-                             row=3,
-                             )
+        #self.button_cos: ttk.Button = ttk.Button(self.main_frame,
+        #                                         text='cos',
+        #                                         command=self.cos)
+        #self.button_cos.grid(column=5,
+        #                     row=3,
+        #                     )
 
-        self.button_tan: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='tan',
-                                                 command=self.tan)
-        self.button_tan.grid(column=5,
-                             row=4,
-                             )
+        #self.button_tan: ttk.Button = ttk.Button(self.main_frame,
+        #                                         text='tan',
+        #                                         command=self.tan)
+        #self.button_tan.grid(column=5,
+        #                     row=4,
+        #                     )
 
         self.button_left_par: ttk.Button = ttk.Button(self.main_frame,
                                                       text='(',
@@ -191,14 +191,14 @@ class App:
         self.button_del: ttk.Button = ttk.Button(self.main_frame,
                                                  text='del',
                                                  command=self.delete)
-        self.button_del.grid(column=5,
+        self.button_del.grid(column=4,
                              row=1,
                              )
         self.button_pow: ttk.Button = ttk.Button(self.main_frame,
                                                  text='^',
                                                  command=self.pow)
         self.button_pow.grid(column=4,
-                             row=0,
+                             row=2,
                              )
 
         self.data_to_count_temp: str = ''
@@ -424,6 +424,7 @@ class App:
 
         ret2: list[str] = []
         check: bool = False
+        print('ret', ret)
         for i in range(len(ret)):
             if i == 0 and ret[0] == '-' and len(ret) > 1 and is_float(ret[1]):
                 e = float(ret[1])
@@ -432,6 +433,11 @@ class App:
                     i += 1
                     check = True
                     continue
+            if i == 0 and ret[0] == '-' and len(ret) > 1 and ret[1] in ['sin', 'ln', 'cos', 'tan', '√']:
+                ret2.append(-1)
+                ret2.append('*')
+                continue
+
             if i != 0 and ret[i] == '-' and len(ret) >= i + 2 and ret[i - 1] == '(' and is_float(ret[i + 1]):
                 e = float(ret[i + 1])
                 if e > 0:
@@ -439,7 +445,10 @@ class App:
                     i += 1
                     check = True
                     continue
-
+            if i != 0 and ret[i] == '-' and len(ret) >= i + 2 and  ret[i + 1] in ['sin', 'ln', 'cos', 'tan', '√', '-sin', '-ln', '-cos', '-tan', '-√']:
+                ret2.append('-' + ret[i + 1])
+                check = True
+                continue
             if check is True:
                 check = False
                 continue
@@ -447,28 +456,30 @@ class App:
                 ret2.append(float(ret[i]))
                 continue
             ret2.append(ret[i])
-
+        print('ret2', ret2)
         ret3: list[str] = []
         check: bool = False
         for i in range(len(ret2)):
             if check is True:
                 check = False
                 continue
-            if ret2[i] in ['sin', 'cos', 'tan', 'ln', '√', '^('] and ret2[i + 1] == '(':
+            if ret2[i] in ['sin', 'cos', 'tan', 'ln', '√', '^(', '-sin', '-cos', '-tan', '-ln', '-√'] and ret2[i + 1] == '(':
                 ret3.append(ret2[i] + '(')
                 check = True
                 continue
             ret3.append(ret2[i])
-
+        print('ret3', ret3)
         ret4: list[str] = [str(e) for e in ret3]
+        print('ret4', ret4)
 
         temp: To_RPN = To_RPN(ret4)
-        temp = temp.result()
-        print(temp)
-        temp2: From_RPN_to_val = From_RPN_to_val(temp)
-        print(temp2.result())
-        self.data_to_count_temp = temp2.result()
 
+        temp = temp.result()
+        print('ret5', temp)
+        temp2: From_RPN_to_val = From_RPN_to_val(temp)
+
+        self.data_to_count_temp = temp2.result()
+        print('ret6', self.data_to_count_temp)
         self.data_to_count.set(self.data_to_count_temp)
 
         self.returned = True

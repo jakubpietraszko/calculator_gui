@@ -1,18 +1,19 @@
 from help import is_float
-from math import log, sin, cos, tan ,sqrt
+from math import log, sin, cos, tan,sqrt
 
 
 class To_RPN():
     def __init__(self, data: list[str]) -> None:
         self.stack: list[str] = []
         self.queue: list[str] = []
-
+        print('data', data)
         for e in data:
             if is_float(e):
                 self.queue.append(e)
                 continue
 
-            if e in ['^(', '√(', 'ln(', 'sin(', 'cos(', 'tan(']:
+            if e in ['^(', '√(', 'ln(', 'sin(', 'cos(', 'tan(', '-√(', '-ln(', '-sin(', '-cos(', '-tan(']:
+                print(e)
                 self.stack.append(e)
                 continue
 
@@ -50,6 +51,7 @@ class To_RPN():
             self.queue.append(self.stack.pop())
 
     def result(self) -> list[str]:
+        print(self.queue)
         return self.queue
 
 
@@ -96,6 +98,23 @@ class From_RPN_to_val():
                     continue
                 if e == '√':
                     self.stack.append(sqrt(last))
+                    continue
+            if e in ['-ln', '-sin', '-cos', '-tan', '-√']:
+                last: float = self.stack.pop()
+                if e == '-ln':
+                    self.stack.append(-log(last))
+                    continue
+                if e == '-sin':
+                    self.stack.append(-sin(last))
+                    continue
+                if e == '-cos':
+                    self.stack.append(-cos(last))
+                    continue
+                if e == '-tan':
+                    self.stack.append(-tan(last))
+                    continue
+                if e == '-√':
+                    self.stack.append(-sqrt(last))
                     continue
                     
         self.val = self.stack[-1]
