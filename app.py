@@ -132,41 +132,6 @@ class App:
                              row=4,
                              )
 
-        #self.button_sqrt: ttk.Button = ttk.Button(self.main_frame,
-        #                                          text='√',
-        #                                          command=self.sqrt)
-        #self.button_sqrt.grid(column=4,
-        #                      row=1,
-        #                      )
-
-        #self.button_ln: ttk.Button = ttk.Button(self.main_frame,
-        #                                        text='ln',
-        #                                        command=self.ln)
-        #self.button_ln.grid(column=4,
-        #                    row=2,
-        #                    )
-
-        #self.button_sin: ttk.Button = ttk.Button(self.main_frame,
-        #                                         text='sin',
-        #                                         command=self.sin)
-        #self.button_sin.grid(column=5,
-        #                     row=2,
-        #                     )
-
-        #self.button_cos: ttk.Button = ttk.Button(self.main_frame,
-        #                                         text='cos',
-        #                                         command=self.cos)
-        #self.button_cos.grid(column=5,
-        #                     row=3,
-        #                     )
-
-        #self.button_tan: ttk.Button = ttk.Button(self.main_frame,
-        #                                         text='tan',
-        #                                         command=self.tan)
-        #self.button_tan.grid(column=5,
-        #                     row=4,
-        #                     )
-
         self.button_left_par: ttk.Button = ttk.Button(self.main_frame,
                                                       text='(',
                                                       command=self.left_par)
@@ -222,72 +187,42 @@ class App:
         self.root.mainloop()
 
     def zero(self) -> None:
-        #if self.returned is True:
-        #    self.returned = False
-        #    self.data_to_count_temp = ''
         self.data_to_count_temp += '0'
         self.data_to_count.set(self.data_to_count_temp)
 
     def one(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '1'
         self.data_to_count.set(self.data_to_count_temp)
 
     def two(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '2'
         self.data_to_count.set(self.data_to_count_temp)
 
     def three(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '3'
         self.data_to_count.set(self.data_to_count_temp)
 
     def four(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '4'
         self.data_to_count.set(self.data_to_count_temp)
 
     def five(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '5'
         self.data_to_count.set(self.data_to_count_temp)
 
     def six(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '6'
         self.data_to_count.set(self.data_to_count_temp)
 
     def seven(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '7'
         self.data_to_count.set(self.data_to_count_temp)
 
     def eight(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '8'
         self.data_to_count.set(self.data_to_count_temp)
 
     def nine(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '9'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -300,38 +235,19 @@ class App:
             self.calculate()
 
     def plus(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '+'
         self.data_to_count.set(self.data_to_count_temp)
 
     def minus(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '-'
         self.data_to_count.set(self.data_to_count_temp)
 
     def mult(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '*'
         self.data_to_count.set(self.data_to_count_temp)
 
     def dev(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '/'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def sqrt(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += '√('
         self.data_to_count.set(self.data_to_count_temp)
 
     def dot(self) -> None:
@@ -341,45 +257,11 @@ class App:
         self.data_to_count_temp += '.'
         self.data_to_count.set(self.data_to_count_temp)
 
-    def ln(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += 'ln('
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def sin(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += 'sin('
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def cos(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += 'cos('
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def tan(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += 'tan('
-        self.data_to_count.set(self.data_to_count_temp)
-
     def left_par(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '('
         self.data_to_count.set(self.data_to_count_temp)
 
     def right_par(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += ')'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -391,9 +273,6 @@ class App:
             self.data_to_count.set(self.data_to_count_temp)
 
     def pow(self) -> None:
-        '''if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = '''''
         self.data_to_count_temp += '^'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -424,7 +303,6 @@ class App:
 
         ret2: list[str] = []
         check: bool = False
-        print('ret', ret)
         for i in range(len(ret)):
             if i == 0 and ret[0] == '-' and len(ret) > 1 and is_float(ret[1]):
                 e = float(ret[1])
@@ -456,7 +334,6 @@ class App:
                 ret2.append(float(ret[i]))
                 continue
             ret2.append(ret[i])
-        print('ret2', ret2)
         ret3: list[str] = []
         check: bool = False
         for i in range(len(ret2)):
@@ -468,18 +345,14 @@ class App:
                 check = True
                 continue
             ret3.append(ret2[i])
-        print('ret3', ret3)
         ret4: list[str] = [str(e) for e in ret3]
-        print('ret4', ret4)
 
         temp: To_RPN = To_RPN(ret4)
 
         temp = temp.result()
-        print('ret5', temp)
         temp2: From_RPN_to_val = From_RPN_to_val(temp)
 
         self.data_to_count_temp = temp2.result()
-        print('ret6', self.data_to_count_temp)
         self.data_to_count.set(self.data_to_count_temp)
 
         self.returned = True

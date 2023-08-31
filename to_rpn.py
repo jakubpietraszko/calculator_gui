@@ -1,5 +1,7 @@
 from help import is_float
-from math import log, sin, cos, tan,sqrt
+from help import op_high, op_mid, op_low
+from help import op_all
+from help import operator_cast
 
 
 class To_RPN():
@@ -11,21 +13,19 @@ class To_RPN():
                 self.queue.append(e)
                 continue
 
-            if e in ['^(', '√(', 'ln(', 'sin(', 'cos(', 'tan(', '-√(', '-ln(', '-sin(', '-cos(', '-tan(']:
+            if e in op_low:
+                while len(self.stack) > 0 and self.stack[-1] in (op_low + op_mid):
+                    self.queue.append(self.stack.pop())
                 self.stack.append(e)
                 continue
 
-            if e in ['+', '-']:
-                while len(self.stack) > 0 and (self.stack[-1] in ['+', '-', '*', '/']):
+            if e in op_mid:
+                while len(self.stack) > 0 and (self.stack[-1] in op_mid):
                     self.queue.append(self.stack.pop())
                 self.stack.append(e)
                 continue
-            if e in ['*', '/']:
-                while len(self.stack) > 0 and (self.stack[-1] in ['*', '/']):
-                    self.queue.append(self.stack.pop())
-                self.stack.append(e)
-                continue
-            if e == '^':
+
+            if e in op_high:
                 self.stack.append(e)
                 continue
 
@@ -34,7 +34,7 @@ class To_RPN():
                 continue
 
             if e == ')':
-                while len(self.stack) > 0 and self.stack[-1] in ['+', '-', '*', '/', '^']:
+                while len(self.stack) > 0 and self.stack[-1] in op_all:
                     self.queue.append(self.stack.pop())
                 if len(self.stack) > 0:
                     if self.stack[-1] == '(':
@@ -54,74 +54,17 @@ class To_RPN():
 
 class From_RPN_to_val():
     def __init__(self, data: list[str]) -> None:
-        self.ret: float = 0
         self.stack: list[float] = []
 
         for e in data:
             if is_float(e):
                 self.stack.append(float(e))
                 continue
-            if e in ['+', '-', '*', '/', '^']:
+            if e in op_all:
                 second: float = self.stack.pop()
                 first: float = self.stack.pop()
-                if e == '+':
-                    self.stack.append(first + second)
-                    continue
-                if e == '-':
-                    self.stack.append(first - second)
-                    continue
-                if e == '*':
-                    self.stack.append(first * second)
-                    continue
-                if e == '/':
-                    self.stack.append(first / second)
-                    continue
-                if e == '^':
-                    self.stack.append(first ** second)
-                    continue
-            if e in ['ln', 'sin', 'cos', 'tan', '√']:
-                last: float = self.stack.pop()
-                if e == 'ln':
-                    self.stack.append(log(last))
-                    continue
-                if e == 'sin':
-                    self.stack.append(sin(last))
-                    continue
-                if e == 'cos':
-                    self.stack.append(cos(last))
-                    continue
-                if e == 'tan':
-                    self.stack.append(tan(last))
-                    continue
-                if e == '√':
-                    self.stack.append(sqrt(last))
-                    continue
-            if e in ['-ln', '-sin', '-cos', '-tan', '-√']:
-                last: float = self.stack.pop()
-                if e == '-ln':
-                    self.stack.append(-log(last))
-                    continue
-                if e == '-sin':
-                    self.stack.append(-sin(last))
-                    continue
-                if e == '-cos':
-                    self.stack.append(-cos(last))
-                    continue
-                if e == '-tan':
-                    self.stack.append(-tan(last))
-                    continue
-                if e == '-√':
-                    self.stack.append(-sqrt(last))
-                    continue
-                    
-        self.val = self.stack[-1]
-
+                self.stack.append(operator_cast[e](first, second))
+                continue
+                
     def result(self) -> str:
-        return str(self.val)
-
-
-if __name__ == '__main__':
-    data: list[str] =  ['3', '+', '4','*', '2', '/', '(', '1', '-', '5', ')', '^', '2']
-    print('before', data)
-    temp: To_RPN = To_RPN(data)
-    print('after', temp.result())
+        return str(self.stack[-1])
