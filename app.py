@@ -222,9 +222,9 @@ class App:
         self.root.mainloop()
 
     def zero(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
+        #if self.returned is True:
+        #    self.returned = False
+        #    self.data_to_count_temp = ''
         self.data_to_count_temp += '0'
         self.data_to_count.set(self.data_to_count_temp)
 
