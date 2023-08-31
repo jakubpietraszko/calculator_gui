@@ -229,65 +229,65 @@ class App:
         self.data_to_count.set(self.data_to_count_temp)
 
     def one(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '1'
         self.data_to_count.set(self.data_to_count_temp)
 
     def two(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '2'
         self.data_to_count.set(self.data_to_count_temp)
 
     def three(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '3'
         self.data_to_count.set(self.data_to_count_temp)
 
     def four(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '4'
         self.data_to_count.set(self.data_to_count_temp)
 
     def five(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '5'
         self.data_to_count.set(self.data_to_count_temp)
 
     def six(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '6'
         self.data_to_count.set(self.data_to_count_temp)
 
     def seven(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '7'
         self.data_to_count.set(self.data_to_count_temp)
 
     def eight(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '8'
         self.data_to_count.set(self.data_to_count_temp)
 
     def nine(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '9'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -300,30 +300,30 @@ class App:
             self.calculate()
 
     def plus(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '+'
         self.data_to_count.set(self.data_to_count_temp)
 
     def minus(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '-'
         self.data_to_count.set(self.data_to_count_temp)
 
     def mult(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '*'
         self.data_to_count.set(self.data_to_count_temp)
 
     def dev(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '/'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -370,16 +370,16 @@ class App:
         self.data_to_count.set(self.data_to_count_temp)
 
     def left_par(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '('
         self.data_to_count.set(self.data_to_count_temp)
 
     def right_par(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += ')'
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -391,9 +391,9 @@ class App:
             self.data_to_count.set(self.data_to_count_temp)
 
     def pow(self) -> None:
-        if self.returned is True:
+        '''if self.returned is True:
             self.returned = False
-            self.data_to_count_temp = ''
+            self.data_to_count_temp = '''''
         self.data_to_count_temp += '^'
         self.data_to_count.set(self.data_to_count_temp)
 
