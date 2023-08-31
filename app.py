@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+from help import is_float
+from to_rpn import To_RPN, From_RPN_to_val
 
 
 class App:
@@ -21,7 +23,7 @@ class App:
         self.button_0: ttk.Button = ttk.Button(self.main_frame,
                                                text='0',
                                                command=self.zero)
-        self.button_0.grid(column=1,
+        self.button_0.grid(column=0,
                            row=4,
                            )
 
@@ -91,8 +93,8 @@ class App:
         self.button_c: ttk.Button = ttk.Button(self.main_frame,
                                                text='c',
                                                command=self.c)
-        self.button_c.grid(column=0,
-                           row=4,
+        self.button_c.grid(column=5,
+                           row=0,
                            )
 
         self.button_eq: ttk.Button = ttk.Button(self.main_frame,
@@ -129,6 +131,76 @@ class App:
         self.button_dev.grid(column=3,
                              row=4,
                              )
+
+        self.button_sqrt: ttk.Button = ttk.Button(self.main_frame,
+                                                  text='√',
+                                                  command=self.sqrt)
+        self.button_sqrt.grid(column=4,
+                              row=1,
+                              )
+
+        self.button_ln: ttk.Button = ttk.Button(self.main_frame,
+                                                text='ln',
+                                                command=self.ln)
+        self.button_ln.grid(column=4,
+                            row=2,
+                            )
+
+        self.button_sin: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='sin',
+                                                 command=self.sin)
+        self.button_sin.grid(column=5,
+                             row=2,
+                             )
+
+        self.button_cos: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='cos',
+                                                 command=self.cos)
+        self.button_cos.grid(column=5,
+                             row=3,
+                             )
+
+        self.button_tan: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='tan',
+                                                 command=self.tan)
+        self.button_tan.grid(column=5,
+                             row=4,
+                             )
+
+        self.button_left_par: ttk.Button = ttk.Button(self.main_frame,
+                                                      text='(',
+                                                      command=self.left_par)
+        self.button_left_par.grid(column=4,
+                                  row=3,
+                                  )
+
+        self.button_right_par: ttk.Button = ttk.Button(self.main_frame,
+                                                       text=')',
+                                                       command=self.right_par)
+        self.button_right_par.grid(column=4,
+                                   row=4,
+                                   )
+
+        self.button_dot: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='.',
+                                                 command=self.dot)
+        self.button_dot.grid(column=1,
+                             row=4,
+                             )
+
+        self.button_del: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='del',
+                                                 command=self.delete)
+        self.button_del.grid(column=5,
+                             row=1,
+                             )
+        self.button_pow: ttk.Button = ttk.Button(self.main_frame,
+                                                 text='^',
+                                                 command=self.pow)
+        self.button_pow.grid(column=4,
+                             row=0,
+                             )
+
         self.data_to_count_temp: str = ''
         self.data_to_count: tk.StringVar = tk.StringVar()
         self.data_to_count.set(self.data_to_count_temp)
@@ -224,7 +296,8 @@ class App:
         self.data_to_count.set('')
 
     def eq(self) -> None:
-        self.calculate()
+        if self.data_to_count_temp != '':
+            self.calculate()
 
     def plus(self) -> None:
         if self.returned is True:
@@ -254,11 +327,148 @@ class App:
         self.data_to_count_temp += '/'
         self.data_to_count.set(self.data_to_count_temp)
 
-    def calculate(self) -> None:
-        self.data_to_count_temp = self.count()
+    def sqrt(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '√('
         self.data_to_count.set(self.data_to_count_temp)
-        self.returned = True
 
-    def count(self) -> float:
-        print(self.data_to_count_temp)
-        return 10
+    def dot(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '.'
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def ln(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += 'ln('
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def sin(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += 'sin('
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def cos(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += 'cos('
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def tan(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += 'tan('
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def left_par(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '('
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def right_par(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += ')'
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def delete(self) -> None:
+        if self.data_to_count_temp == '':
+            pass
+        else:
+            self.data_to_count_temp = self.data_to_count_temp[:-1]
+            self.data_to_count.set(self.data_to_count_temp)
+
+    def pow(self) -> None:
+        if self.returned is True:
+            self.returned = False
+            self.data_to_count_temp = ''
+        self.data_to_count_temp += '^'
+        self.data_to_count.set(self.data_to_count_temp)
+
+    def calculate(self) -> None:
+
+        list_op: list[str] = ['*',
+                              '/',
+                              '+',
+                              '-',
+                              '√',
+                              '(',
+                              ')',
+                              '^',
+                              ]
+        temp: str = ''
+        ret: list[str] = []
+        for c in self.data_to_count_temp:
+            if c not in list_op:
+                temp += c
+            else:
+                if temp != '':
+                    ret.append(temp)
+                temp = ''
+                if ret != '':
+                    ret.append(c)
+        if temp != '':
+            ret.append(temp)
+
+        ret2: list[str] = []
+        check: bool = False
+        for i in range(len(ret)):
+            if i == 0 and ret[0] == '-' and len(ret) > 1 and is_float(ret[1]):
+                e = float(ret[1])
+                if e > 0:
+                    ret2.append(-e)
+                    i += 1
+                    check = True
+                    continue
+            if i != 0 and ret[i] == '-' and len(ret) >= i + 2 and ret[i - 1] == '(' and is_float(ret[i + 1]):
+                e = float(ret[i + 1])
+                if e > 0:
+                    ret2.append(-e)
+                    i += 1
+                    check = True
+                    continue
+
+            if check is True:
+                check = False
+                continue
+            if is_float(ret[i]):
+                ret2.append(float(ret[i]))
+                continue
+            ret2.append(ret[i])
+
+        ret3: list[str] = []
+        check: bool = False
+        for i in range(len(ret2)):
+            if check is True:
+                check = False
+                continue
+            if ret2[i] in ['sin', 'cos', 'tan', 'ln', '√', '^('] and ret2[i + 1] == '(':
+                ret3.append(ret2[i] + '(')
+                check = True
+                continue
+            ret3.append(ret2[i])
+
+        ret4: list[str] = [str(e) for e in ret3]
+
+        temp: To_RPN = To_RPN(ret4)
+        temp = temp.result()
+
+        temp2: From_RPN_to_val = From_RPN_to_val(temp)
+
+        self.data_to_count_temp = temp2.result()
+
+        self.data_to_count.set(self.data_to_count_temp)
+
+        self.returned = True
