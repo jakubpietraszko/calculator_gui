@@ -6,14 +6,15 @@ from typing import List, AnyStr
 
 
 class Str_to_List_of_Str():
-    def __init__(self, data: str) -> None:
-        self.ret: list[str] = []
-        list_op: list[str] = op_all + op_par
+    def __init__(self, arg: AnyStr) -> None:
+        self.ret: List[AnyStr] = []
+        list_op: List[AnyStr] = op_all + op_par
 
-        temp: str = ''
+        temp: AnyStr = ''
 
-        ret: list[str] = []
-        for c in data:
+        ret: List[AnyStr] = []
+
+        for c in arg:
             if c not in list_op:
                 temp += c
             else:
@@ -22,10 +23,13 @@ class Str_to_List_of_Str():
                 temp = ''
                 if ret != '':
                     ret.append(c)
+
         if temp != '':
             ret.append(temp)
-        ret2: list[str] = []
+
+        ret2: List[AnyStr] = []
         check: bool = False
+
         for i in range(len(ret)):
             if i == 0 and ret[0] == '-' and len(ret) > 1 and is_float(ret[1]):
                 e = float(ret[1])
@@ -34,6 +38,7 @@ class Str_to_List_of_Str():
                     i += 1
                     check = True
                     continue
+
             if i != 0 and ret[i] == '-' and \
                                     len(ret) >= i + 2 and \
                                     ret[i - 1] == '(' and is_float(ret[i + 1]):
@@ -43,16 +48,19 @@ class Str_to_List_of_Str():
                     i += 1
                     check = True
                     continue
+
             if check is True:
                 check = False
                 continue
+
             if is_float(ret[i]):
                 ret2.append(str(float(ret[i])))
                 continue
+
             ret2.append(str(ret[i]))
             self.ret = ret2
 
-    def result(self) -> list[str]:
+    def result(self) -> List[AnyStr]:
         return self.ret
 
 
