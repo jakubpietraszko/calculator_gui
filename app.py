@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from to_rpn import Str_to_List_of_Str, List_of_Str_to_RPN, RPN_to_Str
-from typing import List
+from typing import List, AnyStr
 from help import num_to_grid
 from functools import partial
 
@@ -71,7 +71,7 @@ class App:
 
         self.root.mainloop()
 
-    def btn_temp(self, val: str) -> None:
+    def btn_temp(self, val: AnyStr) -> None:
         self.data_to_count_temp += val
         self.data_to_count.set(self.data_to_count_temp)
 
@@ -92,11 +92,12 @@ class App:
 
     def calculate(self) -> None:
 
-        ret1: list[str] = Str_to_List_of_Str(self.data_to_count_temp).result()
+        ret1: List[AnyStr] = \
+            Str_to_List_of_Str(self.data_to_count_temp).result()
 
-        ret2: list[str] = List_of_Str_to_RPN(ret1).result()
+        ret2: List[AnyStr] = List_of_Str_to_RPN(ret1).result()
 
-        ret3: str = RPN_to_Str(ret2).result()
+        ret3: AnyStr = RPN_to_Str(ret2).result()
 
         self.data_to_count_temp = ret3
         self.data_to_count.set(self.data_to_count_temp)
