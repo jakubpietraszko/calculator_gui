@@ -57,10 +57,11 @@ class Str_to_List_of_Str():
 
 
 class List_of_Str_to_RPN():
-    def __init__(self, data: list[str]) -> None:
-        self.stack: list[str] = []
-        self.queue: list[str] = []
-        for e in data:
+    def __init__(self, arg: List[AnyStr]) -> None:
+        self.stack: List[AnyStr] = []
+        self.queue: List[AnyStr] = []
+
+        for e in arg:
             if is_float(e):
                 self.queue.append(e)
                 continue
@@ -102,7 +103,7 @@ class List_of_Str_to_RPN():
         while len(self.stack) > 0:
             self.queue.append(self.stack.pop())
 
-    def result(self) -> list[str]:
+    def result(self) -> List[AnyStr]:
         return self.queue
 
 
