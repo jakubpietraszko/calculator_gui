@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
-from help import is_float
-from to_rpn import To_RPN, From_RPN_to_val
+from to_rpn import Str_to_List_of_Str, List_of_Str_to_RPN, RPN_to_Str
+from typing import List
+from help import num_to_grid
+from functools import partial
 
 
 class App:
     def __init__(self) -> None:
-        self.returned: bool = False
 
         self.root: tk.Tk = tk.Tk()
         self.root.title('Calculator')
@@ -20,75 +21,27 @@ class App:
         self.main_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
         self.main_frame.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
 
-        self.button_0: ttk.Button = ttk.Button(self.main_frame,
-                                               text='0',
-                                               command=self.zero)
-        self.button_0.grid(column=0,
-                           row=4,
-                           )
+        self.data_to_count_temp: str = ''
 
-        self.button_1: ttk.Button = ttk.Button(self.main_frame,
-                                               text='1',
-                                               command=self.one)
-        self.button_1.grid(column=0,
-                           row=1,
-                           )
+        self.data_to_count: tk.StringVar = tk.StringVar()
+        self.data_to_count.set(self.data_to_count_temp)
 
-        self.button_2: ttk.Button = ttk.Button(self.main_frame,
-                                               text='2',
-                                               command=self.two)
-        self.button_2.grid(column=1,
-                           row=1,
-                           )
+        self.label: ttk.Label = ttk.Label(self.main_frame,
+                                          textvariable=self.data_to_count)
+        self.label.grid(column=0,
+                        row=0,
+                        columnspan=4,
+                        )
 
-        self.button_3: ttk.Button = ttk.Button(self.main_frame,
-                                               text='3',
-                                               command=self.three)
-        self.button_3.grid(column=2,
-                           row=1,
-                           )
+        self.buttons: List[ttk.Button] = []
+        for b in num_to_grid:
+            button: ttk.Button = ttk.Button(self.main_frame,
+                                            text=b,
+                                            command=partial(self.btn_temp, b))
 
-        self.button_4: ttk.Button = ttk.Button(self.main_frame,
-                                               text='4',
-                                               command=self.four)
-        self.button_4.grid(column=0,
-                           row=2,
-                           )
-
-        self.button_5: ttk.Button = ttk.Button(self.main_frame,
-                                               text='5',
-                                               command=self.five)
-        self.button_5.grid(column=1,
-                           row=2,
-                           )
-
-        self.button_6: ttk.Button = ttk.Button(self.main_frame,
-                                               text='6',
-                                               command=self.six)
-        self.button_6.grid(column=2,
-                           row=2,
-                           )
-
-        self.button_7: ttk.Button = ttk.Button(self.main_frame,
-                                               text='7',
-                                               command=self.seven)
-        self.button_7.grid(column=0,
-                           row=3,
-                           )
-
-        self.button_8: ttk.Button = ttk.Button(self.main_frame,
-                                               text='8',
-                                               command=self.eight)
-        self.button_8.grid(column=1,
-                           row=3,
-                           )
-
-        self.button_9: ttk.Button = ttk.Button(self.main_frame,
-                                               text='9',
-                                               command=self.nine)
-        self.button_9.grid(column=2,
-                           row=3,
-                           )
+            button.grid(column=num_to_grid[b][0],
+                        row=num_to_grid[b][1])
+            self.buttons.append(button)
 
         self.button_c: ttk.Button = ttk.Button(self.main_frame,
                                                text='c',
@@ -104,80 +57,12 @@ class App:
                             row=4,
                             )
 
-        self.button_plus: ttk.Button = ttk.Button(self.main_frame,
-                                                  text='+',
-                                                  command=self.plus)
-        self.button_plus.grid(column=3,
-                              row=1,
-                              )
-
-        self.button_minus: ttk.Button = ttk.Button(self.main_frame,
-                                                   text='-',
-                                                   command=self.minus)
-        self.button_minus.grid(column=3,
-                               row=2,
-                               )
-
-        self.button_mult: ttk.Button = ttk.Button(self.main_frame,
-                                                  text='*',
-                                                  command=self.mult)
-        self.button_mult.grid(column=3,
-                              row=3,
-                              )
-
-        self.button_dev: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='/',
-                                                 command=self.dev)
-        self.button_dev.grid(column=3,
-                             row=4,
-                             )
-
-        self.button_left_par: ttk.Button = ttk.Button(self.main_frame,
-                                                      text='(',
-                                                      command=self.left_par)
-        self.button_left_par.grid(column=4,
-                                  row=3,
-                                  )
-
-        self.button_right_par: ttk.Button = ttk.Button(self.main_frame,
-                                                       text=')',
-                                                       command=self.right_par)
-        self.button_right_par.grid(column=4,
-                                   row=4,
-                                   )
-
-        self.button_dot: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='.',
-                                                 command=self.dot)
-        self.button_dot.grid(column=1,
-                             row=4,
-                             )
-
         self.button_del: ttk.Button = ttk.Button(self.main_frame,
                                                  text='del',
                                                  command=self.delete)
         self.button_del.grid(column=4,
                              row=1,
                              )
-        self.button_pow: ttk.Button = ttk.Button(self.main_frame,
-                                                 text='^',
-                                                 command=self.pow)
-        self.button_pow.grid(column=4,
-                             row=2,
-                             )
-
-        self.data_to_count_temp: str = ''
-        self.data_to_count: tk.StringVar = tk.StringVar()
-        self.data_to_count.set(self.data_to_count_temp)
-        self.label: ttk.Label = ttk.Label(self.main_frame,
-                                          textvariable=self.data_to_count)
-        self.label.grid(column=0,
-                        row=0,
-                        columnspan=4,
-                        sticky="NWES",
-                        padx=(0, 0),
-                        pady=(0, 3)
-                        )
 
         for child in self.main_frame.winfo_children():
             child.grid(sticky="NWES",
@@ -186,44 +71,8 @@ class App:
 
         self.root.mainloop()
 
-    def zero(self) -> None:
-        self.data_to_count_temp += '0'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def one(self) -> None:
-        self.data_to_count_temp += '1'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def two(self) -> None:
-        self.data_to_count_temp += '2'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def three(self) -> None:
-        self.data_to_count_temp += '3'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def four(self) -> None:
-        self.data_to_count_temp += '4'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def five(self) -> None:
-        self.data_to_count_temp += '5'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def six(self) -> None:
-        self.data_to_count_temp += '6'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def seven(self) -> None:
-        self.data_to_count_temp += '7'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def eight(self) -> None:
-        self.data_to_count_temp += '8'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def nine(self) -> None:
-        self.data_to_count_temp += '9'
+    def btn_temp(self, val: str) -> None:
+        self.data_to_count_temp += val
         self.data_to_count.set(self.data_to_count_temp)
 
     def c(self) -> None:
@@ -234,37 +83,6 @@ class App:
         if self.data_to_count_temp != '':
             self.calculate()
 
-    def plus(self) -> None:
-        self.data_to_count_temp += '+'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def minus(self) -> None:
-        self.data_to_count_temp += '-'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def mult(self) -> None:
-        self.data_to_count_temp += '*'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def dev(self) -> None:
-        self.data_to_count_temp += '/'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def dot(self) -> None:
-        if self.returned is True:
-            self.returned = False
-            self.data_to_count_temp = ''
-        self.data_to_count_temp += '.'
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def left_par(self) -> None:
-        self.data_to_count_temp += '('
-        self.data_to_count.set(self.data_to_count_temp)
-
-    def right_par(self) -> None:
-        self.data_to_count_temp += ')'
-        self.data_to_count.set(self.data_to_count_temp)
-
     def delete(self) -> None:
         if self.data_to_count_temp == '':
             pass
@@ -272,87 +90,13 @@ class App:
             self.data_to_count_temp = self.data_to_count_temp[:-1]
             self.data_to_count.set(self.data_to_count_temp)
 
-    def pow(self) -> None:
-        self.data_to_count_temp += '^'
-        self.data_to_count.set(self.data_to_count_temp)
-
     def calculate(self) -> None:
 
-        list_op: list[str] = ['*',
-                              '/',
-                              '+',
-                              '-',
-                              '√',
-                              '(',
-                              ')',
-                              '^',
-                              ]
-        temp: str = ''
-        ret: list[str] = []
-        for c in self.data_to_count_temp:
-            if c not in list_op:
-                temp += c
-            else:
-                if temp != '':
-                    ret.append(temp)
-                temp = ''
-                if ret != '':
-                    ret.append(c)
-        if temp != '':
-            ret.append(temp)
+        ret1: list[str] = Str_to_List_of_Str(self.data_to_count_temp).result()
 
-        ret2: list[str] = []
-        check: bool = False
-        for i in range(len(ret)):
-            if i == 0 and ret[0] == '-' and len(ret) > 1 and is_float(ret[1]):
-                e = float(ret[1])
-                if e > 0:
-                    ret2.append(-e)
-                    i += 1
-                    check = True
-                    continue
-            if i == 0 and ret[0] == '-' and len(ret) > 1 and ret[1] in ['sin', 'ln', 'cos', 'tan', '√']:
-                ret2.append(-1)
-                ret2.append('*')
-                continue
+        ret2: list[str] = List_of_Str_to_RPN(ret1).result()
 
-            if i != 0 and ret[i] == '-' and len(ret) >= i + 2 and ret[i - 1] == '(' and is_float(ret[i + 1]):
-                e = float(ret[i + 1])
-                if e > 0:
-                    ret2.append(-e)
-                    i += 1
-                    check = True
-                    continue
-            if i != 0 and ret[i] == '-' and len(ret) >= i + 2 and  ret[i + 1] in ['sin', 'ln', 'cos', 'tan', '√', '-sin', '-ln', '-cos', '-tan', '-√']:
-                ret2.append('-' + ret[i + 1])
-                check = True
-                continue
-            if check is True:
-                check = False
-                continue
-            if is_float(ret[i]):
-                ret2.append(float(ret[i]))
-                continue
-            ret2.append(ret[i])
-        ret3: list[str] = []
-        check: bool = False
-        for i in range(len(ret2)):
-            if check is True:
-                check = False
-                continue
-            if ret2[i] in ['sin', 'cos', 'tan', 'ln', '√', '^(', '-sin', '-cos', '-tan', '-ln', '-√'] and ret2[i + 1] == '(':
-                ret3.append(ret2[i] + '(')
-                check = True
-                continue
-            ret3.append(ret2[i])
-        ret4: list[str] = [str(e) for e in ret3]
+        ret3: str = RPN_to_Str(ret2).result()
 
-        temp: To_RPN = To_RPN(ret4)
-
-        temp = temp.result()
-        temp2: From_RPN_to_val = From_RPN_to_val(temp)
-
-        self.data_to_count_temp = temp2.result()
+        self.data_to_count_temp = ret3
         self.data_to_count.set(self.data_to_count_temp)
-
-        self.returned = True
