@@ -4,66 +4,66 @@ from typing import AnyStr, List
 
 
 def test_Str_to_List_of_Str_1() -> None:
-    input: str = '(3+5)*(7-2)'
-    expected_output: list[str] = ['(', '3.0', '+', '5.0', ')',
-                                  '*', '(', '7.0', '-', '2.0', ')']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '(3+5)*(7-2)'
+    expected_output: List[AnyStr] = ['(', '3.0', '+', '5.0', ')',
+                                     '*', '(', '7.0', '-', '2.0', ')']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_2() -> None:
-    input: str = '(2+3)*5'
-    expected_output: list[str] = ['(', '2.0', '+',
-                                  '3.0', ')', '*', '5.0']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '(2+3)*5'
+    expected_output: List[AnyStr] = ['(', '2.0', '+',
+                                     '3.0', ')', '*', '5.0']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_3() -> None:
-    input: str = '12+2*(3*4+10/5)'
-    expected_output: list[str] = ['12.0', '+', '2.0', '*', '(', '3.0', '*',
-                                  '4.0', '+', '10.0', '/', '5.0', ')']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '12+2*(3*4+10/5)'
+    expected_output: List[AnyStr] = ['12.0', '+', '2.0', '*', '(', '3.0', '*',
+                                     '4.0', '+', '10.0', '/', '5.0', ')']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_4() -> None:
-    input: str = '-5+(1+2)*4-3'
-    expected_output: list[str] = ['-5.0', '+', '(', '1.0', '+',
-                                  '2.0', ')', '*', '4.0', '-', '3.0']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '-5+(1+2)*4-3'
+    expected_output: List[AnyStr] = ['-5.0', '+', '(', '1.0', '+',
+                                     '2.0', ')', '*', '4.0', '-', '3.0']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_5() -> None:
-    input: str = '3+4*2/(1-5)^2'
-    expected_output: list[str] = ['3.0', '+', '4.0', '*', '2.0', '/', '(',
-                                  '1.0', '-', '5.0', ')', '^', '2.0']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '3+4*2/(1-5)^2'
+    expected_output: List[AnyStr] = ['3.0', '+', '4.0', '*', '2.0', '/', '(',
+                                     '1.0', '-', '5.0', ')', '^', '2.0']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_6() -> None:
-    input: str = '((5-3)*2)'
-    expected_output: list[str] = ['(', '(', '5.0', '-',
-                                  '3.0', ')', '*', '2.0', ')']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '((5-3)*2)'
+    expected_output: List[AnyStr] = ['(', '(', '5.0', '-',
+                                     '3.0', ')', '*', '2.0', ')']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_7() -> None:
-    input: str = '-0.1-(-0.2+2)'
-    expected_output: list[str] = ['-0.1', '-', '(',
-                                  '-0.2', '+', '2.0', ')']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '-0.1-(-0.2+2)'
+    expected_output: List[AnyStr] = ['-0.1', '-', '(',
+                                     '-0.2', '+', '2.0', ')']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
 def test_Str_to_List_of_Str_8() -> None:
-    input: str = '-0.9+0.9+(2^(-3))'
-    expected_output: list[str] = ['-0.9', '+', '0.9', '+', '(', '2.0',
-                                  '^', '(', '-3.0', ')', ')']
-    output: list[str] = Str_to_List_of_Str(input).result()
+    input: AnyStr = '-0.9+0.9+(2^(-3))'
+    expected_output: List[AnyStr] = ['-0.9', '+', '0.9', '+', '(', '2.0',
+                                     '^', '(', '-3.0', ')', ')']
+    output: List[AnyStr] = Str_to_List_of_Str(input).result()
     assert expected_output == output
 
 
